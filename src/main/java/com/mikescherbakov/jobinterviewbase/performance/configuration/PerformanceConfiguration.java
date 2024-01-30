@@ -1,4 +1,4 @@
-package com.mikescherbakov.jobinterviewbase.performance;
+package com.mikescherbakov.jobinterviewbase.performance.configuration;
 
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
