@@ -1,4 +1,4 @@
-package com.mikescherbakov.jobinterviewbase.performance;
+package com.mikescherbakov.jobinterviewbase.performance.controller;
 
 import io.micrometer.core.instrument.Timer;
 import lombok.RequiredArgsConstructor;
