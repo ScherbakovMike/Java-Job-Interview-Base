@@ -1,5 +1,6 @@
 package com.mikescherbakov.jobinterviewbase.performance;
 
+import com.mikescherbakov.jobinterviewbase.model.ProfiledBean;
 import io.micrometer.core.instrument.Timer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class PerformanceController {
 
   private final Timer timer;
+  private final ProfiledBean profiledBean;
 
   // Access results by link:
   // http://localhost:8080/actuator/metrics/my.timer
@@ -19,7 +21,7 @@ public class PerformanceController {
 
     };
     timer.record(action);
-    return "Action has been recorded.";
+    return profiledBean.toString();
   }
 
 }
