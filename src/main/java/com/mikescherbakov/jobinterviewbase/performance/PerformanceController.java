@@ -21,5 +21,4 @@ public class PerformanceController {
     timer.record(action);
     return "Action has been recorded.";
   }
-
 }
