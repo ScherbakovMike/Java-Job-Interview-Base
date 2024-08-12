@@ -2,6 +2,7 @@ package com.mikescherbakov.jobinterviewbase.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -24,10 +25,11 @@ public class Author {
 
   private String name;
 
-  @ManyToMany(cascade = CascadeType.ALL, mappedBy = "authors")
+  @ManyToMany(mappedBy = "authors", cascade = {CascadeType.DETACH, CascadeType.MERGE,
+      CascadeType.PERSIST, CascadeType.REFRESH})
   private List<Course> courses;
 
-  @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+  @OneToMany(cascade = CascadeType.ALL, mappedBy = "author", fetch = FetchType.EAGER)
   private List<Book> books;
 
   public Author(Long id, String name, List<Course> courses, List<Book> books) {

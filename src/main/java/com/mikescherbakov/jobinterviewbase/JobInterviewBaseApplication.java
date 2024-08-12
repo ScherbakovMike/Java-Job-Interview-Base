@@ -11,7 +11,6 @@ import org.springframework.context.annotation.PropertySource;
     ManagementWebSecurityAutoConfiguration.class})
 @PropertySource("classpath:application.properties")
 @PropertySource("classpath:database.properties")
-@PropertySource("classpath:flyway.properties")
 public class JobInterviewBaseApplication {
 
   public static void main(String[] args) {

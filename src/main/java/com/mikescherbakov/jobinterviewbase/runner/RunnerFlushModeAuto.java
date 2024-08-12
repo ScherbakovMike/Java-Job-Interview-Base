@@ -1,5 +1,6 @@
 package com.mikescherbakov.jobinterviewbase.runner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mikescherbakov.jobinterviewbase.model.Author;
 import com.mikescherbakov.jobinterviewbase.model.Book;
 import com.mikescherbakov.jobinterviewbase.model.Course;
@@ -14,14 +15,16 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class StartupRunnerConfiguration implements CommandLineRunner {
+public class RunnerFlushModeAuto implements CommandLineRunner {
 
   private final AuthorRepository authorRepository;
   private final CourseRepository courseRepository;
   private final BookRepository bookRepository;
+  private final ObjectMapper mapper;
 
   @Override
   @Transactional
@@ -34,11 +37,14 @@ public class StartupRunnerConfiguration implements CommandLineRunner {
 
     var savedAuthor = authorRepository.save(author);
 
-    var courseId = savedAuthor.getCourses().get(0).getId();
-    var bookId = savedAuthor.getBooks().get(0).getId();
-
-    var savedCourse = courseRepository.findById(courseId);
-    var savedBook = bookRepository.findById(bookId);
-
+    authorRepository.findById(savedAuthor.getId()).ifPresent(reposAuthor ->
+    {
+      System.out.println("Books count: " + (long) reposAuthor.getBooks().size());
+      System.out.println("First book id: " + (long) reposAuthor.getBooks().get(0).getId());
+      System.out.println("First course id: " + (long) reposAuthor.getCourses().get(0).getId());
+      System.out.println(
+          "Author Id in the first course: " + (long) reposAuthor.getCourses().get(0).getAuthors()
+              .get(0).getId());
+    });
   }
 }
