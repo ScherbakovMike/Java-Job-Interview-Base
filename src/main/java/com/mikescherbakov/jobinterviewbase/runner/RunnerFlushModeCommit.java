@@ -16,34 +16,33 @@ import java.util.*;
 @Component
 @Slf4j
 @RequiredArgsConstructor
-public class RunnerFlushModeAuto implements CommandLineRunner {
+public class RunnerFlushModeCommit implements CommandLineRunner {
 
     private final AuthorRepository authorRepository;
     private final CourseRepository courseRepository;
     private final BookRepository bookRepository;
     private final ObjectMapper mapper;
 
-    @PersistenceContext
     private final EntityManager entityManager;
 
     @Override
     @Transactional
     public void run(String... args) throws Exception {
-        // Set FlushMode to AUTO
-        // Set FlushMode to COMMIT
+        log.info("=== FlushModeType.COMMIT RUNNER:");
+
         entityManager.setFlushMode(FlushModeType.COMMIT);
 
-        // Create a new User entity
-        Author user = new Author();
-        user.setName("John Doe");
-        entityManager.persist(user);
+        var author = new Author(10L, "Ivan Ivanov", new ArrayList<>(), new ArrayList<>());
+        var course = new Course(10L, "Java Core", List.of(author));
+        var book = new Book(10L, "Java Core", author);
+        author.getCourses().add(course);
+        author.getBooks().add(book);
 
-        // Since FlushMode is set to COMMIT, the session will not be flushed before the query
-        List<Author> users = entityManager.createQuery("FROM Author", Author.class).getResultList();
+        entityManager.merge(author);
+        System.out.println(Utility.getAuthors().size());
 
-        // The newly persisted user is not yet flushed, so it won't be in the list
-        System.out.println("Number of users: " + users.size());  // This will NOT include the newly persisted user
+        var authors = entityManager.createQuery("SELECT a FROM Author a", Author.class).getResultList();
 
-        // Now, when the transaction commits, the session is flushed, and the user is saved to the database
+        System.out.println(Utility.getAuthors().size());
     }
 }
