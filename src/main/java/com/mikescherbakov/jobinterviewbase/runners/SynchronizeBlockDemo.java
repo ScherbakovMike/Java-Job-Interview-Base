@@ -2,7 +2,6 @@ package com.mikescherbakov.jobinterviewbase.runners;
 
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.stereotype.Component;
 
 /*
 1. Concurrency and Multithreading:
@@ -11,7 +10,7 @@ Write code to demonstrate various synchronization techniques
 and solve a producer-consumer problem using different concurrency tools
 (e.g., BlockingQueue, Semaphore).
  */
-@Component
+//@Component
 public class SynchronizeBlockDemo implements ApplicationRunner {
 
   @Override
