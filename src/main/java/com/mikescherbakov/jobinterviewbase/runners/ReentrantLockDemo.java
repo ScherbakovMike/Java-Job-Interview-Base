@@ -6,7 +6,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ReentrantLockDemo implements ApplicationRunner {
 
   private final ReentrantLock lock = new ReentrantLock(true);
