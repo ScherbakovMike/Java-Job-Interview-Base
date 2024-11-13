@@ -6,7 +6,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
 public class ReadWriteLockDemo implements ApplicationRunner {
 
   private final ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock(true);
